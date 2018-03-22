@@ -1,0 +1,42 @@
+<html>
+<link rel = "stylesheet" href='/stylesheets/bootstrap.min.css'/>
+<div class = "container">
+	<div class = "row">
+		<form class='form-signin' action='/dtr-auth/signup' method='POST'>
+			<div style = "padding-top: 50px;"></div>
+			<h3>Register Test</h3>
+
+			<p>
+				<input type='text' name='username' class='form-control' placeholder='Username' required autofocus>
+			</p>
+
+				<p>
+					<input type='text' name='email' class='form-control' placeholder='Email' required autofocus>
+				</p>
+
+				<p>
+					<input type='password' name='password' class='form-control nomargin' placeholder='Password' required>
+				</p>
+
+				<p>
+					<textarea name = "first_name" class='form-control nomargin' placeholder='first_name' required></textarea>
+				</p>
+
+				<p>
+					<input type = "text" name = "last_name" class='form-control nomargin' placeholder='last_name' required>
+				</p>
+
+				<p>
+					<select name = "userType">
+						<option>user</option>
+						<option>admin</option>
+					</select>
+				</p>
+
+				<p>
+					<button type = "submit" class = "btn btn-primary"> Register</button>
+				</p>
+			</form>
+		</div>
+	</div>
+<html>

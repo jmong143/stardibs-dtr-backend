@@ -1,0 +1,157 @@
+<%- include('../_tpl/header') %>
+<%- include('../_tpl/side-nav') %>
+
+        <!--  page-wrapper -->
+        <div id="page-wrapper" style="background-color:white;">
+
+            <div class="row">
+                <!-- Page Header -->
+                <div class="col-lg-12">
+                    <h1 class="page-header">Customer</h1>
+                </div>
+                <!--End Page Header -->
+            </div>
+
+            <div class="row">
+                <!-- Welcome -->
+
+                <!--end  Welcome -->
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-8">
+
+
+
+
+
+                  <table class="table table-striped table-hover table-responsive" id = "transacTable">
+                              <thead>
+                                <tr>
+                                  <th>Email</th>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Action</th>
+                               </tr>
+                              </thead>
+                          </table>
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- view data -->
+                    <div class="alert alert-dismissible alert-success hidden" id="viewData">
+                        <button type="button" id="alertClose" class="close">&times;</button>
+                        <h4></h4>
+                        <table class="table table-hover ">
+                        <tr><td><p>First Name<td>: </td></td><td><p id="first_name"></p></td></tr>
+                            <tr><td><p>Last Name<td>: </td></p></td><td><p id="last_name"></p></td></tr>
+                            <tr><td><p>Contact Number<td>: </td></p></td><td><p id="contact_number"></p></td></tr>
+                            <tr><td><p>Usertype<td>: </td></p></td><td><p id="userType"></p></td></tr>
+                            <tr><td><p>Reservation Status<td>: </td></p></td><td><p id="reservationStatus"></p></td></tr>
+                        </table>
+
+                        <br>
+
+                    </div>
+
+                    <!-- Counter History -->
+                    <div class="panel panel-primary text-center no-boder">
+                        <div class="panel-body blue">
+                            <i class="fa fa-list-alt fa-3x"></i>
+                            <h3 id = "totalUser"><%= totalUser %></h3>
+                        </div>
+                        <div class="panel-footer">
+                            <span class="panel-eyecandy-title">Total Customer
+                            </span>
+                        </div>
+                    </div>
+                    <!-- counter history -->
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+        <!-- end page-wrapper -->
+
+    </div>
+    <!-- end wrapper -->
+<%- include('../_tpl/footer') %>
+<script>
+$(document).ready(function(){
+  $("#linkUser").addClass('selected');
+  var columns = [
+    {"data": "email"},
+    {"data": "last_name"},
+    {"data": "first_name"},
+    {"data": "action"}
+  ];
+  var tableName = '#transacTable';
+  var methodPost = "POST";
+  var data = {"userType": "user"};
+  var userapiURL = userApiURL + "/basic-search";
+dataTabledynamic(tableName ,userapiURL, methodPost, data, columns);
+});
+
+
+$(document).on("click", "#modalDelete", function(){
+  var id = $('#idVal').val(),
+      url =  userApiURL + "/"+id,
+      dataForm ={};
+  passIdUrl(url, dataForm, function(result){
+    notification ('top', 'Data deleted successfully', 'success');
+    var obtable = $('#transacTable').dataTable();
+    obtable.fnReloadAjax();
+    $('#idVal').val("");
+    $('#myModal').modal('hide')
+    var totalUser = Number($('#totalUser').html());
+    $('#totalUser').html( totalUser - 1 );
+    $("#viewData").addClass("hidden");
+  });
+});
+
+$(document).on("click", "#btnView", function(){
+  $("#viewData").removeClass("hidden");
+  var id = $(this).attr("data-id");
+  $.ajax({
+    type:"GET",
+    url: userApiURL + "/" +id,
+    data: [],
+    dataType: 'json',
+    success: function(results){
+      $("#email").html(results.email);
+      $("#first_name").html(results.first_name);
+      $("#last_name").html(results.last_name);
+      $("#contact_number").html(results.contact_number);
+      $("#userType").html(results.userType);
+      $("#reservationStatus").html(results.reservationStatus);
+      console.log("------results----->" + JSON.stringify(results));
+    }
+  });
+});
+
+
+$(document).on("click", "#alertClose", function(){
+  $("#viewData").addClass("hidden");
+  $("#labelFullname").html("");
+});
+
+
+</script>

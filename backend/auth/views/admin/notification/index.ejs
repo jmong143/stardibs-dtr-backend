@@ -1,0 +1,162 @@
+<%- include('../_tpl/header') %>
+<%- include('../_tpl/side-nav') %>
+
+        <!--  page-wrapper -->
+        <div id="page-wrapper" style="background-color:white;">
+
+            <div class="row">
+                <!-- Page Header -->
+                <div class="col-lg-12">
+                    <h1 class="page-header">Notification</h1>
+                </div>
+                <!--End Page Header -->
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-lg-8">
+
+                  <table class="table table-striped table-hover table-responsive" id = "notifTable">
+                              <thead>
+                                <tr>
+                                    <th>Notifier Name</th>
+                                    <th>Type</th>
+                                    <th>Reference ID</th>
+                                    <th>Reference Title</th>
+                                    <th>Text</th>
+                                    <th>Action</th>
+                               </tr>
+                              </thead>
+                          </table>
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <div class="col-lg-4">
+                    <!--- view data --->
+                    <div class="alert alert-dismissible alert-success hidden" id="viewData">
+                        <button type="button" id="alertClose" class="close">&times;</button>
+                        <h4></h4>
+                        <table class="table table-hover ">
+                          <h2>Notification</h2>
+                        <tr><td><p>Notifier Name<td>: </td></td><td><p id="notifier_name"></p></td></tr>
+                            <tr><td><p>Type<td>: </td></p></td><td><p id="type"></p></td></tr>
+                            <tr><td><p>Reference ID<td>: </td></p></td><td><p id="reference_id"></p></td></tr>
+                            <tr><td><p>Reference Title<td>: </td></p></td><td><p id="reference_title"></p></td></tr>
+                            <tr><td><p>Text<td>: </td></p></td><td><p id="text"></p></td></tr>
+                        </table>
+
+                        <br>
+
+                    </div>
+
+                    <!-- panel-count -->
+                    <div class="panel panel-primary text-center no-boder">
+                        <div class="panel-body blue">
+                            <i class="fa fa-list-alt fa-3x"></i>
+                            <h3 id = "totalNotification"><%= totalNotification %></h3>
+                        </div>
+                        <div class="panel-footer">
+                            <span class="panel-eyecandy-title">Total Notification
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- panel-Count -->
+
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+        <!-- end page-wrapper -->
+
+    </div>
+    <!-- end wrapper -->
+
+<%- include('../_tpl/footer') %>
+<script>
+  $(document).ready(function(){
+    $("#linkNotification").addClass('selected');
+    var methodGet = "GET";
+    var data = {};
+    var columns = [
+          {"data": "notifier_name"},
+          {"data": "type"},
+          {"data": "reference_id"},
+          {"data": "reference_title"},
+          {"data": "text"},
+          {"data": "action"},
+    ];
+    var tableName = '#notifTable';
+    dataTabledynamic(tableName ,notificationURL, methodGet, data, columns);
+    });
+
+
+
+
+$(document).on("click", "#modalDelete", function(){
+      var id = $('#idVal').val(),
+        url = notificationURL+'/'+id,
+        dataForm ={};
+      passIdUrl(url, dataForm, function(result){
+        console.log("---------data------->" + (result))
+          notification ('top', 'Data deleted successfully', 'success');
+        var obtable = $('#notifTable').dataTable();
+        obtable.fnReloadAjax();
+        $('#myModal').modal('hide');
+        $('#idVal').val("");
+        var totalNotification = Number($('#totalNotification').html());
+        $('#totalNotification').html( totalNotification - 1 );
+        $("#viewData").addClass("hidden");
+      });
+});
+
+
+$(document).on("click", "#btnView", function(){
+      $("#viewData").removeClass("hidden");
+      var id = $(this).attr("data-id");
+      $.ajax({
+            type:"GET",
+            url:notificationURL+'/'+id,
+            data: [],
+            dataType: 'json',
+            success: function(results){
+
+                $("#notifier_name").html(results.data.notifier_name);
+                $("#type").html(results.data.type);
+                $("#reference_id").html(results.data.reference_id);
+                $("#reference_title").html(results.data.reference_title);
+                $("#text").html(results.data.text);
+
+                console.log("------results----->" + JSON.stringify(results));
+            }
+
+    });
+});
+
+
+$(document).on("click", "#alertClose", function(){
+      $("#viewData").addClass("hidden");
+        $("#labelFullname").html("");
+
+});
+
+    </script>

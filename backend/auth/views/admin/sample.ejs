@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rese</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
+   <link href="/css/style.css" rel="stylesheet" />
+      <link href="/css/main-style.css" rel="stylesheet" />
+      <link href = "/media/css/jquery.dataTables.css" />
+</head>
+
+<body class="body-Login-back">
+
+
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <center><label class="control-label" for="focusedInput"><h4>DATA FORM</h4></label></center>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" action="javascript:void(0)">
+                            <fieldset>
+                                <div class="form-group">
+                                  <label class="control-label" for="focusedInput">Pickup Location</label>
+                                    <input class="form-control" placeholder="" name="email" type="" autofocus id="pickUpLocation">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label" for="focusedInput">Destination</label>
+                                    <input class="form-control" placeholder="" name="" type="" value="" id="destination">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="focusedInput">Distance</label>
+                                    <input class="form-control" placeholder="" name="" type="" value="" id="distance">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="focusedInput">Price</label>
+                                    <input class="form-control" placeholder="" name="" type="" value="" id="price">
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <button class="btn btn-lg btn-success btn-block" id="btnSubmit">Submit</button>
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- data view -->
+
+
+              <!-- data view -->
+              <!-- sample view -->
+
+              <!-- sample view -->
+                <div>
+                    <table class="table table-hover" id="myTable">
+                          <thead>
+                            <th>Location</th>
+                            <th>Destination</th>
+                            <th>distance</th>
+                            <th>Price</th>
+
+                          </thead>
+                          <tbody id="tableBody">
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+                </div>
+
+
+
+
+
+     <!-- Core Scripts - Include with every page -->
+    <script src="/plugins/jquery-1.10.2.js"></script>
+    <script src="/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/scripts/crudfunction.js"></script>
+    <script src="/scripts/dataview.js"></script>
+    <script src="/scripts/singleview.js"></script>
+    <script src="/media/js/jquery.dataTables.min.js"></script>
+    <script src="/scripts/table.js"></script>
+    <script src="/scripts/datatableOptimize.js"></script>
+</body>
+<script>
+$(document).ready(function(){
+//dataview();
+var column = {"data": "pickUpLocation",
+    "data": "destination",
+    "data": "distance",
+    "data": "price"}
+var type = "GET";
+var url = "http://localhost:4008/reservation"
+datatableOptimize(url, type);
+
+
+
+});
+$('#btnSubmit').click(function(){
+  var dataset = {'pickUpLocation': $('#pickUpLocation').val(),
+                  'distance': $('#distance').val(),
+                  'destination': $('#destination').val(),
+                  'price': $('#price').val()
+                }
+  createProcess(dataset);
+  //dataview();
+  var obtable = $('#myTable').dataTable();
+  obtable.fnReloadAjax();
+
+  $('.form-control').val("");
+
+});
+
+
+</script>
+
+
+</html>

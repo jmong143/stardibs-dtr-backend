@@ -1,0 +1,136 @@
+<html>
+
+
+<head>
+	<link href="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/css/layout.css" rel="stylesheet"/>
+  <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/logo.png" type="image/x-icon">
+	<title>RIDE - Available Now!</title>
+</head>
+
+<body>
+<div class="panel panel-success first-panel">
+  <div class="panel-body">
+      <div class="col-lg-6" align="center">
+        <div id="slideshow">
+          <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/slideshow/mobile-3.png" class="img-responsive"/>
+          <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/slideshow/mobile-2.png" class="img-responsive "/>
+          <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/slideshow/mobile-4.png" class="img-responsive"/>
+          <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/slideshow/mobile-5.png" class="img-responsive"/>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <p class="main-title">Ride</p>
+        <p class="index-text-main">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+        </p><br/>
+        <p>
+          <a href="#" class="btn btn-default btn-lg btn-download">Download Now!</a>
+        </p>
+
+      </div>
+  </div>
+</div>
+<div class="panel panel-primary second-panel">
+  <div class="panel-body">
+      <div class="col-lg-6">
+        <p align="center" class="main-title">Why choose Ride?</p>
+        <div class="col-lg-12">
+         <div class="col-lg-3">
+            <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/features/features-logo-1.png" class="img-responsive"/>
+          </div>
+          <div class="col-lg-9">
+            <p class="index-text paragraph-spacing">ACCURATE LOCATION</p>
+            <p class="index-text-small"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+          </div>
+        </div>
+        <div class="col-lg-12">
+         <div class="col-lg-3">
+            <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/features/features-logo-4.png" class="img-responsive"/>
+          </div>
+          <div class="col-lg-9">
+            <p class="index-text paragraph-spacing">SECURITY</p>
+            <p class="index-text-small"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+          </div>
+        </div>
+        <div class="col-lg-12">
+         <div class="col-lg-3">
+            <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/features/features-logo-3.png" class="img-responsive"/>
+          </div>
+          <div class="col-lg-9">
+            <p class="index-text paragraph-spacing">IT'S EASY</p>
+            <p class="index-text-small"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+          </div>
+        </div>
+        <div class="col-lg-12">
+         <div class="col-lg-3">
+            <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/features/features-logo-5.png" class="img-responsive"/>
+          </div>
+          <div class="col-lg-9">
+            <p class="index-text paragraph-spacing">CHECK OTHER SERVICES AROUND</p>
+            <p class="index-text-small"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+          </div>
+        </div>
+        <div class="col-lg-12">
+         <div class="col-lg-3">
+            <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/features/features-logo-2.png" class="img-responsive"/>
+          </div>
+          <div class="col-lg-9">
+            <p class="index-text paragraph-spacing">ABSOLUTELY FREE!</p>
+            <p class="index-text-small"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-6">
+         <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/panel-2-image.png" class="img-responsive"/>
+      </div>
+  </div>
+</div>
+<div class="panel panel-primary third-panel">
+  <div class="panel-body">
+       <div class="col-lg-3">
+
+      </div>
+      <div class="col-lg-6" align="center">
+        <p class="main-title">Ride is available NOW!</p>
+        <p class="index-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        </p>
+        <p>
+          <a href="#">
+          <img src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/images/dl-android.png" class="img-responsive image-download"/>
+          </a>
+
+      </div>
+      <div class="col-lg-3">
+
+      </div>
+  </div>
+</div>
+
+
+
+</body>
+
+<script src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/js/jquery-3.1.1.min.js"></script>
+<script src="https://s3-ap-southeast-1.amazonaws.com/ride-frontend/js/bootstrap.min.js"></script>
+
+<script>
+  $('document').ready(function() {
+    var $imgs = $('#slideshow > img'), current = 0;
+
+    var nextImage = function() {
+        if (current >= $imgs.length) current = 0;
+        $imgs.eq(current++).fadeIn(function() {
+            $(this).delay(4000).fadeOut(nextImage);
+        })
+    };
+    nextImage();
+});
+
+</script>
+
+
+
+</html>

@@ -1,0 +1,162 @@
+<%- include('../_tpl/header') %>
+<%- include('../_tpl/side-nav') %>
+
+        <!--  page-wrapper -->
+        <div id="page-wrapper" style="background-color:white;">
+
+            <div class="row">
+                <!-- Page Header -->
+                <div class="col-lg-12">
+                    <h1 class="page-header">Ads</h1>
+                </div>
+                <!--End Page Header -->
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-lg-8">
+
+                  <table class="table table-striped table-hover table-responsive" id = "adsTable">
+                              <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>Action</th>
+                               </tr>
+                              </thead>
+                          </table>
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <div class="col-lg-4">
+
+
+                  <div class="alert alert-dismissible alert-success hidden" id="viewData">
+                      <button type="button" id="alertClose" class="close">&times;</button>
+                      <h4></h4>
+                      <table class="table table-hover">
+                        <h2>Ads Information</h2>
+                          <tr><td><p>Name<td>: </td></td><td><p id="adsName"></p></td></tr>
+                          <tr><td><p>Email<td>: </td></p></td><td><p id="adsEmail"></p></td></tr>
+                          <tr><td><p>Contact<td>: </td></p></td><td><p id="adsContact"></p></td></tr>
+                          <tr><td><p>Address<td>: </td></p></td><td><p id="adsAddress"></p></td></tr>
+                          <tr><td><p>Description<td>: </td></p></td><td><p id="adsDescription"></p></td></tr>
+                          <tr><td><p>Latitude<td>: </td></p></td><td><p id="adsLat"></p></td></tr>
+                          <tr><td><p>Longgitude<td>: </td></p></td><td><p id="adsLong"></p></td></tr>
+                      </table>
+                      <br>
+                  </div>
+
+
+                    <!-- panel-count -->
+                    <div class="panel panel-primary text-center no-boder">
+                        <div class="panel-body blue">
+                            <i class="fa fa-list-alt fa-3x"></i>
+                            <h3 id = "totalAds"><%= totalAds %></h3>
+                        </div>
+                        <div class="panel-footer">
+                            <span class="panel-eyecandy-title">Total Ads
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- panel-Count -->
+
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+        <!-- end page-wrapper -->
+
+    </div>
+    <!-- end wrapper -->
+
+    <%- include('../_tpl/footer') %>
+    <script>
+  $(document).ready(function(){
+      $("#linkAds1").addClass('selected');
+      var columns =  [
+        {"data": "adsName"},
+        {"data": "adsEmail"},
+        {"data": "adsContact"},
+        {"data": "action"},
+      ]
+      var tableName = '#adsTable';
+      var methodGet = "GET";
+      var data = {};
+      dataTabledynamic(tableName ,adsURL, methodGet, data, columns);
+
+  });
+
+
+
+$(document).on("click", "#btnDelete", function(){
+      $('#myModal').modal('show')
+      var id = $(this).attr("data-id");
+      $('#idVal').val(id);
+});
+$(document).on("click", "#modalDelete", function(){
+      var id = $('#idVal').val(),
+          url = adsURL+ '/' +id,
+          dataForm = {};
+      passIdUrl(url, dataForm, function(result){
+        notification ('top', 'Data deleted successfully', 'success');
+        var obtable = $('#adsTable').dataTable();
+        obtable.fnReloadAjax();
+        $('#idVal').val("");
+        $('#myModal').modal('hide')
+
+        var totalAds = Number($('#totalAds').html());
+        $('#totalAds').html( totalAds - 1 );
+        $("#viewData").addClass("hidden");
+      });
+});
+
+
+$(document).on("click", "#btnView", function(){
+      $("#viewData").removeClass("hidden");
+      var id = $(this).attr("data-id");
+      $.ajax({
+            type:"GET",
+            url: adsURL+'/'+id,
+            data: [],
+            dataType: 'json',
+            success: function(results){
+
+                $("#adsName").html(results.data.adsName);
+                $("#adsAddress").html(results.data.adsAddress);
+                $("#adsContact").html(results.data.adsContact);
+                $("#adsEmail").html(results.data.adsEmail);
+                $("#adsDescription").html(results.data.adsDescription);
+                $("#adsLat").html(results.data.adsLat);
+                $("#adsLong").html(results.data.adsLong);
+
+                console.log("------results----->" + JSON.stringify(results));
+            }
+
+    });
+});
+
+
+
+    </script>

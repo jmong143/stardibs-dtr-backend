@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stardibs DTR version 2</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/alertify.core.css" />
+    <link rel="stylesheet" href="./assets/css/alertify.default.css" id="toggleCSS" />
+</head>
+<body>
+	<div id="react-container" class="">
+		<h1>Stardibs DTR</h1>
+	</div>
+  <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
+  <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./assets/js/moment.min.js"></script>
+  <script type="text/javascript" src="./assets/js/alertify.min.js"></script>
+	<script type="text/javascript" src="bundle.js"></script>
+  <script>
+  $(document).ready(function(){
+    //alert(moment("20111031", "YYYYMMDD").fromNow())
+
+    var currentdate = new Date();
+    var datetime = "Last Sync: "+ currentdate.getHours() + ":"
+                    + currentdate.getMinutes() + ":"
+                    + currentdate.getSeconds();
+
+    var startTime=moment(datetime, "HH:mm:ss a");
+    var endTime=moment("07:16:59 pm", "HH:mm:ss a");
+    var duration = moment.duration(endTime.diff(startTime));
+    var hours = parseInt(duration.asHours());
+    var minutes = parseInt(duration.asMinutes())-hours*60;
+    //alert (hours + ' hour and '+ minutes+' minutes.');
+
+    alertify.success("<span class = 'glyphicon glyphicon-info-sign'></span> Welcome to Stardibs Date Time Record");
+  })
+
+  function reset () {
+			//$("#toggleCSS").attr("href", "./css/alertify.default.css");
+			alertify.set({
+				labels : {
+					ok     : "OK",
+					cancel : "Cancel"
+				},
+				delay : 5000,
+				buttonReverse : false,
+				buttonFocus   : "ok"
+			});
+		}
+  </script>
+</body>
+</html>
